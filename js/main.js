@@ -72,3 +72,31 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 })();
+
+/** Contact form: Formspree redirect back to site + success message */
+(function () {
+  const form = document.getElementById("contact-form");
+  const successEl = document.getElementById("contact-form-success");
+  if (!form) return;
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("sent") === "1" && successEl) {
+    successEl.classList.remove("hidden");
+    params.delete("sent");
+    const nextSearch = params.toString();
+    const clean =
+      window.location.pathname +
+      (nextSearch ? "?" + nextSearch : "") +
+      window.location.hash;
+    window.history.replaceState({}, "", clean);
+  }
+
+  const next = document.createElement("input");
+  next.type = "hidden";
+  next.name = "_next";
+  const u = new URL(window.location.href);
+  u.searchParams.set("sent", "1");
+  u.hash = "#contact";
+  next.value = u.toString();
+  form.appendChild(next);
+})();
