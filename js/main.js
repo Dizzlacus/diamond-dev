@@ -73,6 +73,99 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 })();
 
+(function setupCarousels() {
+  function setupCarousel(trackId, prevId, nextId, dotsSelector, indexAttribute) {
+    const track = document.getElementById(trackId);
+    const prev = document.getElementById(prevId);
+    const next = document.getElementById(nextId);
+    const dots = Array.from(document.querySelectorAll(dotsSelector));
+  if (!track || !prev || !next || !dots.length) return;
+
+  const cards = Array.from(track.children);
+  const controls = prev.parentElement === next.parentElement ? prev.parentElement : null;
+  const dotControls = dots[0] ? dots[0].parentElement : null;
+
+  if (cards.length <= 1) {
+    prev.classList.add("hidden");
+    next.classList.add("hidden");
+    if (controls) controls.classList.add("hidden");
+    if (dotControls) dotControls.classList.add("hidden");
+  }
+
+  function cardStep() {
+    const firstCard = cards[0];
+    if (!firstCard) return track.clientWidth;
+    const styles = window.getComputedStyle(track);
+    const gap = parseFloat(styles.columnGap || styles.gap || "0") || 0;
+    return firstCard.getBoundingClientRect().width + gap;
+  }
+
+  function activeIndex() {
+    return Math.round(track.scrollLeft / cardStep());
+  }
+
+  function maxIndex() {
+    const visibleCards = Math.max(1, Math.round(track.clientWidth / cardStep()));
+    return Math.max(0, cards.length - visibleCards);
+  }
+
+  function updateDots() {
+    const lastIndex = maxIndex();
+    const index = Math.max(0, Math.min(lastIndex, activeIndex()));
+    dots.forEach((dot, dotIndex) => {
+      dot.classList.toggle("hidden", dotIndex > lastIndex);
+      const isActive = dotIndex === index;
+      dot.classList.toggle("w-8", isActive);
+      dot.classList.toggle("w-2.5", !isActive);
+      dot.classList.toggle("bg-accent", isActive);
+      dot.classList.toggle("bg-white/20", !isActive);
+    });
+  }
+
+  function scrollToIndex(index) {
+    track.scrollTo({ left: cardStep() * index, behavior: "smooth" });
+  }
+
+  prev.addEventListener("click", () => {
+    scrollToIndex(Math.max(0, activeIndex() - 1));
+  });
+
+  next.addEventListener("click", () => {
+    scrollToIndex(Math.min(maxIndex(), activeIndex() + 1));
+  });
+
+  dots.forEach((dot) => {
+    dot.addEventListener("click", () => {
+      scrollToIndex(
+        Math.min(maxIndex(), Number(dot.getAttribute(indexAttribute) || 0))
+      );
+    });
+  });
+
+  track.addEventListener("scroll", () => {
+    window.requestAnimationFrame(updateDots);
+  });
+
+  window.addEventListener("resize", updateDots, { passive: true });
+  updateDots();
+  }
+
+  setupCarousel(
+    "portfolio-track",
+    "portfolio-prev",
+    "portfolio-next",
+    "#portfolio-dots [data-portfolio-index]",
+    "data-portfolio-index"
+  );
+  setupCarousel(
+    "reviews-track",
+    "reviews-prev",
+    "reviews-next",
+    "#reviews-dots [data-review-index]",
+    "data-review-index"
+  );
+})();
+
 /** Contact form: Formspree redirect back to site + success message */
 (function () {
   const form = document.getElementById("contact-form");
