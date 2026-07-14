@@ -1,0 +1,132 @@
+<section id="contact" class="bg-page reveal">
+  <div class="px-5 py-12 md:px-10 md:py-14 lg:px-16 lg:py-24">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-left md:text-center">
+        <p class="section-kicker">Contact</p>
+        <h2
+          class="mx-auto mt-5 max-w-4xl font-display text-4xl font-bold tracking-[-0.05em] text-white md:text-6xl"
+        >
+          Ready to build something that works?
+        </h2>
+        <p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-white/55">
+          Tell us about your project and we will come back with a clear next step.
+        </p>
+      </div>
+
+      <div class="mt-10 grid gap-4 md:grid-cols-2">
+        <a
+          href="mailto:mikeydiamond@hotmail.co.uk"
+          class="glass-card accent-glow-subtle flex items-center gap-4 rounded-2xl p-5"
+        >
+          <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10">
+            <img src="/img/svg/icon-email.svg" alt="" class="w-5 h-5" aria-hidden="true" />
+          </div>
+          <div>
+            <h3 class="font-display font-semibold text-white">Email</h3>
+            <p class="mt-1 text-sm text-white/50">mikeydiamond@hotmail.co.uk</p>
+          </div>
+        </a>
+
+        <div class="glass-card accent-glow-subtle flex items-center gap-4 rounded-2xl p-5">
+          <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10">
+            <img src="/img/svg/icon-location.svg" alt="" class="w-5 h-5" aria-hidden="true" />
+          </div>
+          <div>
+            <h3 class="font-display font-semibold text-white">Location</h3>
+            <p class="mt-1 text-sm text-white/50">Newcastle, UK</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card accent-glow mt-6 rounded-[2rem] p-6 md:p-8">
+        <div class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h3 class="font-display text-2xl font-bold text-white">Send a message</h3>
+            <p class="mt-2 text-sm text-white/45"
+              >A few details are enough to get the conversation started.</p
+            >
+          </div>
+          <span class="text-sm font-semibold text-accent">Usually replies within 24 hours</span>
+        </div>
+
+        <p
+          id="contact-form-success"
+          class="hidden mb-4 rounded-2xl border border-accent/40 bg-accent/10 px-4 py-3 text-sm text-accent"
+          role="status"
+          aria-live="polite"
+        >
+          Thanks - your message was sent. We will get back to you soon.
+        </p>
+
+        <form
+          id="contact-form"
+          action="https://formspree.io/f/xdaynonn"
+          method="POST"
+          class="space-y-5"
+        >
+          <input type="hidden" name="_subject" value="Diamond Web Dev contact form" />
+          <label class="hidden" aria-hidden="true">
+            <span>Do not fill this out</span>
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" />
+          </label>
+
+          <div class="space-y-2">
+            <label for="contact-name" class="block text-sm text-white/60">Your Name</label>
+            <input
+              id="contact-name"
+              type="text"
+              name="name"
+              placeholder="John Doe"
+              required
+              class="w-full rounded-2xl border border-white/10 bg-input px-4 py-3 text-white placeholder:text-white/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/40 transition-colors"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label for="contact-email" class="block text-sm text-white/60">Email Address</label>
+            <input
+              id="contact-email"
+              type="email"
+              name="email"
+              placeholder="john@example.com"
+              required
+              class="w-full rounded-2xl border border-white/10 bg-input px-4 py-3 text-white placeholder:text-white/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/40 transition-colors"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label for="contact-message" class="block text-sm text-white/60">Message</label>
+            <textarea
+              id="contact-message"
+              name="message"
+              rows="5"
+              placeholder="Tell us about your project..."
+              required
+              class="w-full resize-none rounded-2xl border border-white/10 bg-input px-4 py-3 text-white placeholder:text-white/30 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/40 transition-colors"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 font-bold text-page transition-all hover:bg-[#64eca0] active:bg-[#24c969]"
+          >
+            <span>Send Message</span>
+            <svg
+              class="w-4 h-4 shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M22 2 11 13"></path>
+              <path d="M22 2 15 22 11 13 2 9l20-7z"></path>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

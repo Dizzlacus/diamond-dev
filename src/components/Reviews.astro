@@ -1,0 +1,139 @@
+---
+const reviews = [
+  {
+    quote:
+      '"The whole process felt calm and professional. The website looks premium, loads fast, and is much easier for us to update."',
+    name: 'Sarah Mitchell',
+    role: 'Studio Founder',
+  },
+  {
+    quote:
+      '"Clear communication from start to finish. Every decision had a reason, and the final site feels exactly right for our brand."',
+    name: 'James Carter',
+    role: 'Independent Consultant',
+  },
+  {
+    quote:
+      '"We needed a WordPress site that looked sharp but was simple to manage. That is exactly what we got."',
+    name: 'Emma Roberts',
+    role: 'Small Business Owner',
+  },
+  {
+    quote:
+      '"The site feels faster, cleaner, and more trustworthy. We noticed better enquiries almost immediately after launch."',
+    name: 'Daniel Hughes',
+    role: 'Service Business Director',
+  },
+  {
+    quote:
+      '"A brilliant experience. The design is polished, the admin area is straightforward, and support after launch has been excellent."',
+    name: 'Laura Bennett',
+    role: 'Creative Director',
+  },
+  {
+    quote:
+      '"The project was handled with care and attention to detail. Our new site finally reflects the quality of our work."',
+    name: 'Michael Turner',
+    role: 'Founder',
+  },
+];
+---
+
+<section id="reviews" class="bg-page reveal">
+  <div class="px-5 py-12 md:px-10 md:py-14 lg:px-16 lg:py-24">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col items-start gap-8 text-left md:items-center md:text-center">
+        <div class="w-full">
+          <p class="section-kicker">Reviews</p>
+          <h2
+            class="mt-5 font-display text-4xl font-bold tracking-[-0.04em] text-white md:text-6xl lg:whitespace-nowrap"
+          >
+            Proven results. Trusted&nbsp;partnerships.
+          </h2>
+          <p class="mx-auto mt-5 max-w-3xl text-lg leading-8 text-white/55">
+            A look at what clients experience when working with us.
+          </p>
+        </div>
+
+        <div class="flex items-center justify-center gap-3">
+          <button
+            id="reviews-prev"
+            type="button"
+            class="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/70 transition-colors hover:border-accent/50 hover:text-accent"
+            aria-label="Previous review"
+          >
+            <svg
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19 8 12l7-7"></path>
+            </svg>
+          </button>
+          <button
+            id="reviews-next"
+            type="button"
+            class="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/70 transition-colors hover:border-accent/50 hover:text-accent"
+            aria-label="Next review"
+          >
+            <svg
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div
+        id="reviews-track"
+        class="no-scrollbar mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth"
+        aria-label="Client reviews carousel"
+      >
+        {
+          reviews.map((review) => (
+            <article class="glass-card hover-glow flex min-w-full snap-start flex-col justify-between rounded-[1.5rem] p-7 md:min-w-[calc(50%-0.625rem)] lg:min-w-[calc(33.333%-0.875rem)]">
+              <div>
+                <div
+                  class="text-sm font-bold uppercase tracking-[0.18em] text-accent"
+                  aria-label="5 out of 5 rating"
+                >
+                  5.0 rating
+                </div>
+                <p class="mt-6 text-lg leading-8 text-white/70">{review.quote}</p>
+              </div>
+              <div class="mt-8">
+                <h3 class="font-display text-xl font-semibold text-white">{review.name}</h3>
+                <p class="mt-1 text-sm text-white/45">{review.role}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <div id="reviews-dots" class="mt-8 flex justify-center gap-2" aria-label="Choose review slide">
+        {
+          reviews.map((_, index) => (
+            <button
+              type="button"
+              class:list={[
+                'h-2.5 rounded-full',
+                index === 0 ? 'w-8 bg-accent' : 'w-2.5 bg-white/20',
+              ]}
+              aria-label={`Show review ${index + 1}`}
+              data-review-index={index}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
