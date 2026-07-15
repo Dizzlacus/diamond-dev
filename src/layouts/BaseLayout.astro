@@ -2,39 +2,166 @@
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { site, services, reviews } from '../data/site';
 
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  type?: 'website' | 'article';
   showMobileNav?: boolean;
   stickyNav?: boolean;
   homeLinks?: boolean;
 }
 
 const {
-  title = 'Diamond Dev',
-  description = 'Custom WordPress websites built for performance, flexibility, and growth.',
+  title = site.name,
+  description = site.description,
+  image = site.ogImage,
+  type = 'website',
   showMobileNav = true,
   stickyNav = true,
   homeLinks = true,
 } = Astro.props;
+
+const siteURL = Astro.site ?? new URL(site.url);
+const canonicalURL = new URL(Astro.url.pathname, siteURL);
+const imageURL = new URL(image, siteURL);
+
+const businessId = `${site.url}/#business`;
+const websiteId = `${site.url}/#website`;
+const founderId = `${site.url}/#founder`;
+
+const ratings = reviews.map((review) => review.rating);
+const ratingValue =
+  ratings.reduce((total, rating) => total + rating, 0) / (ratings.length || 1);
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ProfessionalService',
+      '@id': businessId,
+      name: site.name,
+      legalName: site.legalName,
+      url: site.url,
+      email: site.email,
+      description: site.description,
+      image: imageURL.href,
+      logo: new URL('/favicon.svg', siteURL).href,
+      priceRange: site.priceRange,
+      areaServed: site.areaServed,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: site.addressLocality,
+        addressRegion: site.addressRegion,
+        addressCountry: site.addressCountry,
+      },
+      founder: { '@id': founderId },
+      ...(site.sameAs.length ? { sameAs: site.sameAs } : {}),
+      knowsAbout: [
+        'Web Development',
+        'Web Design',
+        'Responsive Design',
+        'UI/UX Design',
+        'Search Engine Optimization',
+        'Performance Optimization',
+      ],
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Web development services',
+        itemListElement: services.map((service) => ({
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: service.name,
+            description: service.description,
+          },
+        })),
+      },
+      ...(reviews.length
+        ? {
+            aggregateRating: {
+              '@type': 'AggregateRating',
+              ratingValue: ratingValue.toFixed(1),
+              reviewCount: reviews.length,
+              bestRating: 5,
+              worstRating: 1,
+            },
+            review: reviews.map((review) => ({
+              '@type': 'Review',
+              reviewBody: review.quote.replace(/^"|"$/g, ''),
+              author: { '@type': 'Person', name: review.name },
+              reviewRating: {
+                '@type': 'Rating',
+                ratingValue: review.rating,
+                bestRating: 5,
+                worstRating: 1,
+              },
+            })),
+          }
+        : {}),
+    },
+    {
+      '@type': 'WebSite',
+      '@id': websiteId,
+      name: site.name,
+      url: site.url,
+      description: site.description,
+      inLanguage: 'en-GB',
+      publisher: { '@id': businessId },
+    },
+    {
+      '@type': 'Person',
+      '@id': founderId,
+      name: site.founderName,
+      jobTitle: 'Web Developer',
+      image: new URL(site.founderImage, siteURL).href,
+      worksFor: { '@id': businessId },
+      url: site.url,
+    },
+  ],
+};
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en-GB" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content={site.name} />
+    <meta name="theme-color" content="#0b0d0c" />
     <title>{title}</title>
+    <link rel="canonical" href={canonicalURL.href} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:image" content={imageURL.href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={site.locale} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageURL.href} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} is:inline />
   </head>
   <body
     class="min-h-screen bg-page text-white antialiased selection:bg-accent/30 selection:text-white"

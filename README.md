@@ -5,15 +5,15 @@ Marketing site for [diamond-dev.co.uk](https://diamond-dev.co.uk), built with [A
 ## Develop
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 ## Build
 
 ```bash
-npm run build
-npm run preview
+pnpm build
+pnpm preview
 ```
 
 ## Deploy

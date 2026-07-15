@@ -1,42 +1,5 @@
 ---
-const reviews = [
-  {
-    quote:
-      '"The whole process felt calm and professional. The website looks premium, loads fast, and is much easier for us to update."',
-    name: 'Sarah Mitchell',
-    role: 'Studio Founder',
-  },
-  {
-    quote:
-      '"Clear communication from start to finish. Every decision had a reason, and the final site feels exactly right for our brand."',
-    name: 'James Carter',
-    role: 'Independent Consultant',
-  },
-  {
-    quote:
-      '"We needed a WordPress site that looked sharp but was simple to manage. That is exactly what we got."',
-    name: 'Emma Roberts',
-    role: 'Small Business Owner',
-  },
-  {
-    quote:
-      '"The site feels faster, cleaner, and more trustworthy. We noticed better enquiries almost immediately after launch."',
-    name: 'Daniel Hughes',
-    role: 'Service Business Director',
-  },
-  {
-    quote:
-      '"A brilliant experience. The design is polished, the admin area is straightforward, and support after launch has been excellent."',
-    name: 'Laura Bennett',
-    role: 'Creative Director',
-  },
-  {
-    quote:
-      '"The project was handled with care and attention to detail. Our new site finally reflects the quality of our work."',
-    name: 'Michael Turner',
-    role: 'Founder',
-  },
-];
+import { reviews } from '../data/site';
 ---
 
 <section id="reviews" class="bg-page reveal">
@@ -104,9 +67,9 @@ const reviews = [
               <div>
                 <div
                   class="text-sm font-bold uppercase tracking-[0.18em] text-accent"
-                  aria-label="5 out of 5 rating"
+                  aria-label={`${review.rating} out of 5 rating`}
                 >
-                  5.0 rating
+                  {review.rating.toFixed(1)} rating
                 </div>
                 <p class="mt-6 text-lg leading-8 text-white/70">{review.quote}</p>
               </div>
