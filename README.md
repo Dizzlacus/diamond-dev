@@ -18,4 +18,15 @@ pnpm preview
 
 ## Deploy
 
-Pushes to `main` build and deploy via GitHub Actions to GitHub Pages. In the repo settings, set **Pages → Source** to **GitHub Actions**.
+Cloudflare Workers Builds (connect the GitHub repo in the dashboard):
+
+| Field | Value |
+| --- | --- |
+| Build command | `pnpm run build` |
+| Deploy command | `npx wrangler deploy` |
+
+Locally:
+
+```bash
+pnpm deploy
+```
