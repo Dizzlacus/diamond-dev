@@ -1,3 +1,8 @@
+---
+import { Picture } from 'astro:assets';
+import aboutWorkspace from '../assets/images/about-workspace.png';
+---
+
 <section id="about" class="bg-page reveal">
   <div class="px-5 py-12 md:px-10 md:py-14 lg:px-16 lg:py-24">
     <div class="max-w-7xl mx-auto grid gap-10 lg:gap-20 lg:grid-cols-[0.9fr_1.1fr] items-center">
@@ -8,11 +13,13 @@
         <div
           class="relative h-full min-h-[372px] overflow-hidden rounded-[1.5rem] border border-white/10 bg-page/55"
         >
-          <img
-            src="/img/about-workspace.png"
+          <Picture
+            src={aboutWorkspace}
+            formats={['avif', 'webp']}
             alt="Code editor open across dual monitors in a dark developer workspace"
-            width="500"
-            height="333"
+            width={500}
+            height={333}
+            layout="constrained"
             loading="lazy"
             decoding="async"
             class="absolute inset-0 h-full w-full object-cover object-center"

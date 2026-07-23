@@ -1,3 +1,8 @@
+---
+import { Picture } from 'astro:assets';
+import heroMichael from '../assets/images/hero-michael.png';
+---
+
 <section id="hero" class="relative overflow-hidden bg-page pt-28 md:pt-32">
   <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
     <div class="absolute left-1/2 top-0 h-80 w-80 -translate-x-1/2 rounded-full bg-accent/10 blur-3xl"
@@ -20,11 +25,14 @@
           class="overflow-hidden rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-accent/25 via-white/10 to-transparent p-5"
         >
           <div class="aspect-[4/3] overflow-hidden rounded-[1.25rem] bg-page/80">
-            <img
-              src="/img/hero-michael.png"
+            <Picture
+              src={heroMichael}
+              formats={['avif', 'webp']}
               alt="Michael Diamond, freelance web developer, working on a laptop"
-              width="500"
-              height="792"
+              width={500}
+              height={792}
+              layout="constrained"
+              loading="eager"
               fetchpriority="high"
               decoding="async"
               class="h-full w-full object-cover object-[center_40%]"
