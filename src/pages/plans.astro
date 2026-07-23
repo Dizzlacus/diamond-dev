@@ -1,0 +1,176 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, plans, carePlans } from '../data/site';
+---
+
+<BaseLayout
+  title="Plans — Diamond Web Dev"
+  description="Website packages and monthly care plans from Diamond Web Dev, including Starter, Business, and Premium websites plus Essential, Growth, and Digital Partner support tiers."
+  robots="noindex, nofollow"
+  stickyNav={false}
+  homeLinks={false}
+>
+  <main class="px-5 py-16 md:px-10 lg:px-16 lg:py-24">
+    <div class="max-w-7xl mx-auto">
+      <div class="max-w-3xl mx-auto text-left md:text-center">
+        <p class="section-kicker">Plans</p>
+        <h1
+          class="mt-5 font-display text-4xl font-bold tracking-[-0.04em] text-white md:text-6xl"
+        >
+          Clear packages for getting online.
+        </h1>
+        <p class="mt-5 text-lg leading-8 text-white/55">
+          Straightforward pricing for sole traders and growing businesses. Pick a
+          package that fits, then get in touch to get started.
+        </p>
+      </div>
+
+      <div
+        class:list={[
+          'mt-12 grid gap-5',
+          plans.length === 1
+            ? 'max-w-lg mx-auto'
+            : 'md:grid-cols-2 lg:grid-cols-3',
+        ]}
+      >
+        {
+          plans.map((plan) => (
+            <article
+              class:list={[
+                'glass-card hover-glow relative flex flex-col rounded-[1.5rem] p-8',
+                plan.popular && 'accent-glow',
+              ]}
+            >
+              {plan.popular && (
+                <p class="mb-4 text-xs font-semibold uppercase tracking-wider text-accent">
+                  Most Popular
+                </p>
+              )}
+              <h2 class="font-display text-2xl font-semibold text-white">
+                {plan.name}
+              </h2>
+              <p class="mt-3 font-display text-4xl font-bold tracking-tight text-accent">
+                {plan.price}
+              </p>
+              <p class="mt-4 text-white/55 leading-7">{plan.summary}</p>
+
+              <div class="mt-8">
+                <p class="text-sm font-semibold uppercase tracking-wider text-white/40">
+                  {plan.includesLabel}
+                </p>
+                <ul class="mt-4 flex flex-col gap-3">
+                  {plan.includes.map((item) => (
+                    <li class="flex gap-3 items-start">
+                      <span class="mt-[6px] shrink-0 w-[6px] h-[6px] rounded-full bg-accent" />
+                      <span class="text-base text-white/70 leading-relaxed">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {plan.delivery && (
+                <p class="mt-8 text-sm text-white/45">
+                  Delivery:{' '}
+                  <span class="text-white/70">{plan.delivery}</span>
+                </p>
+              )}
+
+              <div class="mt-auto pt-6">
+                <a
+                  href={`mailto:${site.email}?subject=${encodeURIComponent(`${plan.name} enquiry`)}`}
+                  class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-5 py-3.5 text-sm font-bold text-page transition-colors hover:bg-[#64eca0] active:bg-[#24c969]"
+                >
+                  Enquire about {plan.name}
+                </a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <section class="mt-20 pt-16 border-t border-white/10">
+        <div class="max-w-3xl mx-auto text-left md:text-center">
+          <p class="section-kicker">Monthly Care Plans</p>
+          <h2
+            class="mt-5 font-display text-3xl font-bold tracking-[-0.04em] text-white md:text-5xl"
+          >
+            Keep your site running and improving.
+          </h2>
+          <p class="mt-5 text-lg leading-8 text-white/55">
+            Ongoing hosting, support, and development so your website stays fast,
+            secure, and useful month after month.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-5 md:grid-cols-3">
+          {
+            carePlans.map((plan) => (
+              <article class="glass-card hover-glow flex flex-col rounded-[1.5rem] p-8">
+                <h3 class="font-display text-2xl font-semibold text-white">
+                  {plan.name}
+                </h3>
+                <p class="mt-3 font-display text-4xl font-bold tracking-tight text-accent">
+                  {plan.price}
+                </p>
+                {plan.summary && (
+                  <p class="mt-4 text-white/55 leading-7">{plan.summary}</p>
+                )}
+
+                <div class="mt-8">
+                  <p class="text-sm font-semibold uppercase tracking-wider text-white/40">
+                    {plan.includesLabel}
+                  </p>
+                  <ul class="mt-4 flex flex-col gap-3">
+                    {plan.includes.map((item) => (
+                      <li class="flex gap-3 items-start">
+                        <span class="mt-[6px] shrink-0 w-[6px] h-[6px] rounded-full bg-accent" />
+                        <span class="text-base text-white/70 leading-relaxed">
+                          {item}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div class="mt-auto pt-6">
+                  <a
+                    href={`mailto:${site.email}?subject=${encodeURIComponent(`${plan.name} enquiry`)}`}
+                    class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-5 py-3.5 text-sm font-bold text-page transition-colors hover:bg-[#64eca0] active:bg-[#24c969]"
+                  >
+                    Enquire about {plan.name}
+                  </a>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <div class="mt-16 pt-8 border-t border-white/10">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 text-accent hover:text-[#64eca0] transition-colors text-sm font-medium"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              d="M13 8H3M3 8L7 4M3 8L7 12"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+          Back to home
+        </a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
